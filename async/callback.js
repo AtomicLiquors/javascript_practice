@@ -8,6 +8,7 @@
 // console.log(3);
 
 
+/* 콜백 지옥 */
 class UserStorage {
     loginUser(id, password, onSuccess, onError){
         setTimeout(()=>{
