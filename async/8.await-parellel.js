@@ -21,6 +21,7 @@ async function pickFruitsByAsync(){
     return `${apple} + ${banana}`;
 }
 
+/* 1. 프로미스 호출과 할당 후 await */
 async function pickFruitsByPromiseCall(){
     // 프로미스를 둘 다 직접 호출해서 곧바로 실행시키고
     const applePromise = getApple();
@@ -35,10 +36,32 @@ async function pickFruitsByPromiseCall(){
 console.time('실행 시간'); // 측정 시작
 pickFruitsByAsync()
 //pickFruitsByPromiseCall()
-.then((result) => {console.log(result);console.timeEnd('실행 시간')});
-
-// 이렇게 하면 시간 측정이 비동기를 기다리지 않는다.
+.then((result) => {
+    console.log(result);
+    console.timeEnd('실행 시간')
+});
+// 아래처럼 하면 시간 측정이 비동기를 기다리지 않는다.
 /* 
 .then(console.log)
 .then(console.timeEnd('실행 시간'))
 */
+
+/* 2. Promise.all() */
+function pickAllFruits(){
+    //  배열로 프로미스를 전달하고
+    return Promise.all([getApple(), getBanana()])
+    .then(fruits => fruits.join('+'))
+}
+
+console.time('Promise all 실행 시간'); // 측정 시작
+pickAllFruits()
+.then((result) => {
+    console.log(result);
+    console.timeEnd('Promise all 실행 시간')
+});
+
+/* 3. Promise.race() : 먼저 온 놈만 */
+function pickOnlyOne() {
+    return Promise.race([getApple(), getBanana()])
+}
+pickOnlyOne().then(console.log);
