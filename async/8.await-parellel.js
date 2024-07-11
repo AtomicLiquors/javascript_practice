@@ -48,9 +48,11 @@ pickFruitsByAsync()
 
 /* 2. Promise.all() */
 function pickAllFruits(){
-    //  배열로 프로미스를 전달하고
+    //  배열로 프로미스를 전달하고 처리.
     return Promise.all([getApple(), getBanana()])
     .then(fruits => fruits.join('+'))
+    .catch((error) => {});
+    /* 주의! catch의 탐지 범위는 getApple, getBanana뿐만 아니라 .then()도 포함이다. */
 }
 
 console.time('Promise all 실행 시간'); // 측정 시작
@@ -65,3 +67,7 @@ function pickOnlyOne() {
     return Promise.race([getApple(), getBanana()])
 }
 pickOnlyOne().then(console.log);
+
+/* 4. Promise.allSettled() */
+//  하나라도 실패하면 catch로 가는 Promise all, 반면 allSettled는 실패한 것만 추려낼 수 있다.
+    

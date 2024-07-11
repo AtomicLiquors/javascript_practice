@@ -9,6 +9,7 @@
 
 
 /* 콜백 지옥 */
+// 근본적으로 '결괏값을 바로 받아야 한다는 점' 때문에 결과적으로 코드가 중첩이 되고 복잡해진다.
 class UserStorage {
     loginUser(id, password, onSuccess, onError){
         setTimeout(()=>{
